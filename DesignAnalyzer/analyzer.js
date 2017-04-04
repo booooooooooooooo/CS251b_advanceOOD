@@ -3,15 +3,12 @@ var makeReport = function(projectFile) {
    var tools = require('./tools.js');
    var project = tools.getModel(projectFile);
    var classes = tools.collectElements(project, "_type", "UMLClass");
+   //count total, providers, and clients
+   var total = Object.keys(classes).length;
    var statistics = {};
    for(var i in classes) {
-     statistics[classes[i]._id] = {"name":classes[i].name, "providers":[], "clients":[]};
-     console.log(classes[i]._id);
-     console.log(statistics[classes[i]._id]);
+     statistics[classes[i]._id] = {"name":classes[i].name, "providers":[], "clients":[], "instability":null, "responsibility":null, "deviance":null};
    }
-   //log calculation
-   console.log("=======================================================");
-   console.log("stability, responsibility, and deviance of every class: ");
    for(var i in classes) {
 	   var asoctns = tools.collectElements(classes[i], "_type", "UMLAssociation");
      var gens = tools.collectElements(classes[i], "_type", "UMLGeneralization");
@@ -30,19 +27,30 @@ var makeReport = function(projectFile) {
        statistics[gens[k].source.$ref].providers.push(gens[k].target.$ref);
 	   }
    }
-   console.log(statistics);
-   for(var id in statistics){
-     console.log("id: " + id);
-     console.log("  name: " + statistics.id);
-     console.log("  providers: " + statistics.id.providers);
-     console.log("  clients: " + statistics.id.clients);
+   //calculate instability, responsibility and deviance
+   for(var key in statistics){
+     statistics[key].instability = (Object.keys(statistics[key].providers).length) / total;
+     statistics[key].responsibility = (Object.keys(statistics[key].clients).length) / total;
+     statistics[key].deviance = Math.abs(1 - statistics[key].instability - statistics[key].responsibility);
+   }
+   //log results
+   console.log("=======================================================");
+   console.log("instability, responsibility, and deviance of every class: ");
+   for(var key in statistics){
+     console.log("id: " + key);
+     console.log("  name: " + statistics[key].name);
+     console.log("  providers: " + statistics[key].providers);
+     console.log("  clients: " + statistics[key].clients);
+     console.log("  instability: " + statistics[key].instability);
+     console.log("  responsibility: " + statistics[key].responsibility);
+     console.log("  deviance: " + statistics[key].deviance);
    }
    //log description
    console.log("================");
-   console.log("project classes:");
+   console.log("Description:");
    for(var i in classes) {
-	   console.log("  " + classes[i].name);
-     console.log("    id:" + classes[i]._id);
+	   console.log("id:" + classes[i]._id);
+     console.log("    name:" + classes[i].name);
 	   var asoctns = tools.collectElements(classes[i], "_type", "UMLAssociation");
 	   console.log("    UMLAssociations:");
 	   for(var k in asoctns) {

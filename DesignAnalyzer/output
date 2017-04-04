@@ -1,101 +1,57 @@
-Enter file name: [ 'Project',
-  'UMLModel',
-  'UMLClassDiagram',
-  'UMLClassView',
-  'UMLNameCompartmentView',
-  'LabelView',
-  'LabelView',
-  'LabelView',
-  'LabelView',
-  'UMLAttributeCompartmentView',
-  'UMLOperationCompartmentView',
-  'UMLOperationView',
-  'UMLTemplateParameterCompartmentView',
-  'UMLClassView',
-  'UMLNameCompartmentView',
-  'LabelView',
-  'LabelView',
-  'LabelView',
-  'LabelView',
-  'UMLAttributeCompartmentView',
-  'UMLAttributeView',
-  'UMLOperationCompartmentView',
-  'UMLOperationView',
-  'UMLTemplateParameterCompartmentView',
-  'UMLClassView',
-  'UMLNameCompartmentView',
-  'LabelView',
-  'LabelView',
-  'LabelView',
-  'LabelView',
-  'UMLAttributeCompartmentView',
-  'UMLAttributeView',
-  'UMLAttributeView',
-  'UMLAttributeView',
-  'UMLOperationCompartmentView',
-  'UMLOperationView',
-  'UMLOperationView',
-  'UMLTemplateParameterCompartmentView',
-  'UMLClassView',
-  'UMLNameCompartmentView',
-  'LabelView',
-  'LabelView',
-  'LabelView',
-  'LabelView',
-  'UMLAttributeCompartmentView',
-  'UMLOperationCompartmentView',
-  'UMLOperationView',
-  'UMLTemplateParameterCompartmentView',
-  'UMLGeneralizationView',
-  'EdgeLabelView',
-  'EdgeLabelView',
-  'EdgeLabelView',
-  'UMLGeneralizationView',
-  'EdgeLabelView',
-  'EdgeLabelView',
-  'EdgeLabelView',
-  'UMLAssociationView',
-  'EdgeLabelView',
-  'EdgeLabelView',
-  'EdgeLabelView',
-  'EdgeLabelView',
-  'EdgeLabelView',
-  'EdgeLabelView',
-  'EdgeLabelView',
-  'EdgeLabelView',
-  'EdgeLabelView',
-  'UMLQualifierCompartmentView',
-  'UMLQualifierCompartmentView',
-  'UMLAssociationView',
-  'EdgeLabelView',
-  'EdgeLabelView',
-  'EdgeLabelView',
-  'EdgeLabelView',
-  'EdgeLabelView',
-  'EdgeLabelView',
-  'EdgeLabelView',
-  'EdgeLabelView',
-  'EdgeLabelView',
-  'UMLQualifierCompartmentView',
-  'UMLQualifierCompartmentView',
-  'UMLClass',
-  'UMLAssociation',
-  'UMLAssociationEnd',
-  'UMLAssociationEnd',
-  'UMLOperation',
-  'UMLClass',
-  'UMLGeneralization',
-  'UMLAttribute',
-  'UMLOperation',
-  'UMLClass',
-  'UMLAssociation',
-  'UMLAssociationEnd',
-  'UMLAssociationEnd',
-  'UMLAttribute',
-  'UMLAttribute',
-  'UMLAttribute',
-  'UMLOperation',
-  'UMLParameter',
-  'UMLOperation',
-  'UMLParameter',
-  ... 4 more items ]
+Enter file name:
+=======================================================
+instability, responsibility, and deviance of every class:
+id: AAAAAAFLhmgyCn4n38k=
+  name: Company
+  providers: AAAAAAFLhnPAnH64Mg8=
+  clients:
+  instability: 0.25
+  responsibility: 0
+  deviance: 0.75
+id: AAAAAAFLhmiWmH5ND5M=
+  name: Programmer
+  providers: AAAAAAFLhnPAnH64Mg8=
+  clients:
+  instability: 0.25
+  responsibility: 0
+  deviance: 0.75
+id: AAAAAAFLhnPAnH64Mg8=
+  name: Employee
+  providers: AAAAAAFLhnRuDX7f/d0=
+  clients: AAAAAAFLhmgyCn4n38k=,AAAAAAFLhmiWmH5ND5M=,AAAAAAFLhnRuDX7f/d0=
+  instability: 0.25
+  responsibility: 0.75
+  deviance: 0
+id: AAAAAAFLhnRuDX7f/d0=
+  name: Manager
+  providers: AAAAAAFLhnPAnH64Mg8=
+  clients: AAAAAAFLhnPAnH64Mg8=
+  instability: 0.25
+  responsibility: 0.25
+  deviance: 0.5
+================
+Description:
+id:AAAAAAFLhmgyCn4n38k=
+    name:Company
+    UMLAssociations:
+      end1: AAAAAAFLhmgyCn4n38k=  navigable: false
+      end2: AAAAAAFLhnPAnH64Mg8=  navigable: true
+    UMLGeneralizations:
+id:AAAAAAFLhmiWmH5ND5M=
+    name:Programmer
+    UMLAssociations:
+    UMLGeneralizations:
+      target: AAAAAAFLhnPAnH64Mg8=
+      source: AAAAAAFLhmiWmH5ND5M=
+id:AAAAAAFLhnPAnH64Mg8=
+    name:Employee
+    UMLAssociations:
+      end1: AAAAAAFLhnPAnH64Mg8=  navigable: false
+      end2: AAAAAAFLhnRuDX7f/d0=  navigable: true
+    UMLGeneralizations:
+id:AAAAAAFLhnRuDX7f/d0=
+    name:Manager
+    UMLAssociations:
+    UMLGeneralizations:
+      target: AAAAAAFLhnPAnH64Mg8=
+      source: AAAAAAFLhnRuDX7f/d0=

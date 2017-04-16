@@ -1,0 +1,3 @@
+node analyzer.js
+
+Caution: DO NOT REMOVE folder node_modules. It contains a library to make table.

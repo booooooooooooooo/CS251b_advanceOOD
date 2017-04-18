@@ -6,9 +6,18 @@ public abstract class Producer<T> extends Filter<T>{
 
   }
 
-  public void update(){}
+  public void update(){
+    pout.isDemandDriven = false;
+    produce();
 
+  }
+
+  public void start(){
+    pout.isDemandDriven = false;
+    produce();
+  }
   //produce
-  public abstract void start(T[] input);
+  public abstract void produce();
+
 
 }

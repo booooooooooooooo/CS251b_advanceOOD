@@ -7,9 +7,16 @@ public abstract class Customer<T> extends Filter<T>{
   }
 
   public void update(){
-    run();
+    if(! pin.isDemandDriven){
+      consume();
+    }
+  }
+
+  public void start(){
+    pin.isDemandDriven = true;
+    pin.notifyFilters();
   }
 
   //consume
-  public abstract void run();
+  public abstract void consume();
 }

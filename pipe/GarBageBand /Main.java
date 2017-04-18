@@ -2,18 +2,17 @@ import pipe.*;
 import java.util.*;
 public class Main{
   public static void main(String[] args){
-    Integer[] input = {1,2,3};
-    System.out.println(Arrays.toString(input));
-    Pipe<Integer> pipe1 = new Pipe<Integer>();
-    Pipe<Integer> pipe2 = new Pipe<Integer>();
-    Pipe<Integer> pipe3 = new Pipe<Integer>();
-    Pipe<Integer> pipe4 = new Pipe<Integer>();
-    Pipe<Integer> pipe5 = new Pipe<Integer>();
-    DigitalComposer<Integer> composer = new DigitalComposer<Integer>(pipe1);
-    Amplifier<Integer> amplifier = new Amplifier<Integer>(pipe1, pipe2);
-    DurationFilters<Integer> durtionFilter = new DurationFilters<Integer>(pipe2, pipe3);
-    NoiseFilter<Integer> noiseFilter = new NoiseFilter<Integer>(pipe3, pipe4);
-    Player<Integer> player = new Player<Integer>(pipe4);
-    composer.start(input);
+    Pipe<Note> pipe1 = new Pipe<Note>();
+    Pipe<Note> pipe2 = new Pipe<Note>();
+    Pipe<Note> pipe3 = new Pipe<Note>();
+    Pipe<Note> pipe4 = new Pipe<Note>();
+    Pipe<Note> pipe5 = new Pipe<Note>();
+    DigitalComposer composer = new DigitalComposer(pipe1);
+    Amplifier amplifier = new Amplifier(pipe1, pipe2);
+    DurationFilters durtionFilter = new DurationFilters(pipe2, pipe3);
+    NoiseFilter noiseFilter = new NoiseFilter(pipe3, pipe4);
+    Player player = new Player(pipe4);
+    // composer.start();
+    player.start();
   }
 }

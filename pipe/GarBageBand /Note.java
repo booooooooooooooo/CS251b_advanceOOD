@@ -1,13 +1,16 @@
 public class Note{
-  public float frequency;
-  public float amplitude;
-  public float duration;
-  public Note(float frequency, float amplitude, float duration){
+  public int frequency;
+  public int amplitude;
+  public int duration;
+  public Note(int frequency, int amplitude, int duration){
     this.frequency = frequency;
     this.amplitude = amplitude;
     this.duration = duration;
   }
-  public void increaseVolume(){
-    //TODO
+  public void increaseVolume(int amount){
+    this.amplitude += amount;
+  }
+  public int getDuration(){
+    return duration;
   }
 }

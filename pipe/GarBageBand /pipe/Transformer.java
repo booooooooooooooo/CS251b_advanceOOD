@@ -4,9 +4,15 @@ public abstract class Transformer<T> extends Filter<T>{
     super(pin, pout);
   }
   public void update(){
-    T m = transform(pin.read());
-    pout.write(m);
+    if(pin.isDemandDriven){
+      pin.notifyFilters();
+    }else{
+      T m = transform(pin.read());
+      pout.write(m);
+    }
   }
   //transform
   public abstract T transform(T m);
+
+
 }

@@ -1,11 +1,13 @@
 package pipe;
 
 public class Pipe<T> implements Publisher<T>{
+  public static boolean isDemandDriven;
   private Filter<T> fin;
   private Filter<T> fout;
   private T message;
 
   public Pipe(){
+    this.isDemandDriven = false;
     this.fin = null;
     this.fout = null;
     this.message = null;
@@ -23,9 +25,17 @@ public class Pipe<T> implements Publisher<T>{
   }
   public void write(T m){
     this.message = m;
-    notifyFilters();
+    if( m != null){
+      notifyFilters();
+    }
+
   }
   public void notifyFilters(){
-    fout.update();
+    if(isDemandDriven){
+      fin.update();
+    }else{
+      fout.update();
+    }
+
   }
 }

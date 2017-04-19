@@ -9,4 +9,7 @@ public class Message<T>{
     this.quit = quit;
     this.content = content;
   }
+  public T getContent(){
+    return content;
+  }
 }

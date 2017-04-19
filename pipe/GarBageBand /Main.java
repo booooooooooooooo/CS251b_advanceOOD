@@ -12,7 +12,9 @@ public class Main{
     DurationFilters durtionFilter = new DurationFilters(pipe2, pipe3);
     NoiseFilter noiseFilter = new NoiseFilter(pipe3, pipe4);
     Player player = new Player(pipe4);
-    // composer.start();
+    System.out.println("=========DATA DRIVEN============");
+    composer.start();
+    System.out.println("=========DEMAND DRIVEN============");
     player.start();
   }
 }

@@ -4,7 +4,7 @@ public class Pipe<T> implements Publisher<T>{
   public static boolean isDemandDriven;
   private Filter<T> fin;
   private Filter<T> fout;
-  private T message;
+  private Message<T> message;
 
   public Pipe(){
     this.isDemandDriven = false;
@@ -20,12 +20,12 @@ public class Pipe<T> implements Publisher<T>{
     this.fout = fout;
   }
 
-  public T read(){
+  public Message<T> read(){
     return this.message;
   }
-  public void write(T m){
+  public void write(Message<T> m){
     this.message = m;
-    if( m != null){
+    if( !m.quit && !m.fail){
       notifyFilters();
     }
 

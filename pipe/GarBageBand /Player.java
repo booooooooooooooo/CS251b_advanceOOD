@@ -8,15 +8,15 @@ public class Player extends Customer<Note>{
   public void consume(){
     System.out.println("Player plays! ");
     try{
-      Note note = pin.read();
+      Message<Note> m = pin.read();
 
       Synthesizer synth = MidiSystem.getSynthesizer();
       synth.open();
       MidiChannel channel = synth.getChannels()[0];
 
-      channel.noteOn( note.frequency, note.amplitude );
+      channel.noteOn( m.getContent().frequency, m.getContent().amplitude );
       Thread.sleep( 1000);
-      channel.noteOff(note.frequency);
+      channel.noteOff(m.getContent().frequency);
     }catch(MidiUnavailableException e1){
 
     }catch(InterruptedException e2){

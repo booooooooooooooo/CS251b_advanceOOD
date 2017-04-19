@@ -6,18 +6,15 @@ public class DigitalComposer extends Producer<Note>{
   public DigitalComposer(Pipe<Note> pout){
     super(pout);
   }
-  public void produce(){
+  public Message<Note> produce(){
+    System.out.println("DigitalComposer produces one message!");
+    Random random = new Random();
+    int frequency = random.nextInt(1000);
+    int amplitude = random.nextInt(1000);
+    int duration = random.nextInt(1000);
+    Note note = new Note(frequency, amplitude, duration);
+    Message<Note> m = new Message(false, false, note);
+    return m;
 
-    int i = 0;
-    while(i++ < 5){
-      System.out.println(i);
-      System.out.println("DigitalComposer startes!");
-      Random random = new Random();
-      int frequency = random.nextInt(1000);
-      int amplitude = random.nextInt(1000);
-      int duration = random.nextInt(1000);
-      Note note = new Note(frequency, amplitude, duration);
-      pout.write(note);
-    }
   }
 }

@@ -7,12 +7,12 @@ public abstract class Transformer<T> extends Filter<T>{
     if(pin.isDemandDriven){
       pin.notifyFilters();
     }else{
-      T m = transform(pin.read());
+      Message<T> m = transform(pin.read());
       pout.write(m);
     }
   }
   //transform
-  public abstract T transform(T m);
+  public abstract Message<T> transform(Message<T> m);
 
 
 }

@@ -6,15 +6,13 @@ public abstract class Customer<T> extends Filter<T>{
 
   }
 
-  public void update(){
-    if(! pin.isDemandDriven){
-      consume();
-    }
-  }
-
   public void start(){
     pin.isDemandDriven = true;
     pin.notifyFilters();
+  }
+
+  public void update(){
+    consume();
   }
 
   //consume

@@ -2,11 +2,16 @@ package mvc;
 
 import java.util.Stack;
 
-// use singleton pattern
+// use singleton pattern TODO: how
+//CommandProcessor stands between controller and model.
+//It proveds uniform method for controller.
 public class CommandProcessor {
   private Stack<Command> undoStack, redoStack;
 
-  public CommandProcessor() {}
+  public CommandProcessor() {
+    this.undoStack = new Stack<Command>();
+    this.redoStack = new Stack<Command>();
+  }
   public void execute(Command cmmd) {
     cmmd.execute();
     if (cmmd.getUndoable()) {

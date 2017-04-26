@@ -9,7 +9,7 @@ public class BrickModel extends Model{
     super();
   }
 
-  //CALL 	addObserver(Observer o) to add obsevers.....
+  
 
   @Override
   public Memento makeMemento(){

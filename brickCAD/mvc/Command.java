@@ -9,14 +9,19 @@ public abstract class Command {
     this.undoable = undoable;
   }
 
-  public boolean getUndoable() { return undoable; }
+  public boolean getUndoable() {
+    return this.undoable;
+  }
 
   public void undo() {
-    if (undoable && Memento != null)
+    if (undoable && m != null)
       model.accept(m);
   }
   public void execute() {
     this.m = model.makeMemento();
-    // TODO: change model?
+    action();
+
   }
+  //specific actions vary by applications
+  public abstract void action();
 }

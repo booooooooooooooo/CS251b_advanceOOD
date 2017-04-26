@@ -11,7 +11,7 @@ public abstract class Model extends Observable implements Serializable {
   }
 
   //CALL 	addObserver(Observer o) to add obsevers.....
-  public void setFileNme(String filename) {
+  public void setFileName(String filename) {
     this.filename = filename;
   }
   public String getFileName(){

@@ -1,4 +1,3 @@
-package bc;
 import mvc.*;
 
 public class BrickCAD {

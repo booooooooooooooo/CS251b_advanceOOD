@@ -18,7 +18,7 @@ public class MVCApp extends JFrame {
 
     this.factory = factory;
     this.model = factory.makeModel();
-    this.commandProcessor = CommandProcessor.makeCommandProcessor();
+    this.commandProcessor = new CommandProcessor();
 
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     setDefaultLookAndFeelDecorated(true);
@@ -29,7 +29,7 @@ public class MVCApp extends JFrame {
     setBounds(inset, inset, screenSize.width - inset * 2,
               screenSize.height - inset * 2);
 
-    // create first "window" here (I forgot to do this)
+    // create first "window" here (I forgot to do this) TODO
 
     setContentPane(desktop);
     setJMenuBar(createMenuBar());
@@ -51,7 +51,23 @@ public class MVCApp extends JFrame {
   }
 
   protected JMenuBar createMenuBar() {
-    // create a menu bar containing File, Edit, View, and Help menus
+    JMenuBar menubar = new JMenuBar();
+    String[] fileItems = {"Save", "SaveAs", "Open", "New", "Exit"};
+    String[] editItems = {"Undo", "Redo", "SetHeight", "SetWidth", "SetLength"};
+    String[] viewItems = {"Front", "Top", "Side"};
+    String[] helpItems = {"Help"};
+    String[] aboutItems = {"About"};
+    JMenu filemenu = Utilities.makeMenu("File", fileItems, new FileHandler()) ;
+    JMenu editmemu = Utilities.makeMenu("Edit", editItems, new EditHandler());
+    JMenu viewmenu = Utilities.makeMenu("View", viewItems, new ViewHandler());
+    JMenu helpmenu = Utilities.makeMenu("Help", helpItems, new HelpHandler());
+    JMenu aboutmenu = Utilities.makeMenu("About", aboutItems, new AboutHandler());
+    menubar.add(filemenu);
+    menubar.add(editmemu);
+    menubar.add(viewmenu);
+    menubar.add(helpmenu);
+    menubar.add(aboutmenu);
+    return menubar;
   }
 
   class FileHandler implements ActionListener {
@@ -66,17 +82,9 @@ public class MVCApp extends JFrame {
       } else if (cmmd == "New") {
         Utilities.saveChanges(model);
         model = factory.makeModel();
-      } else if (cmmd == "Undo") {
-        commandProcessor.undo();
-      } else if (cmmd == "Redo") {
-        commandProcessor.redo();
-      } else if (cmmd == "Quit") {
+      } else if (cmmd == "Exit") {
         Utilities.saveChanges(model);
         System.exit(1);
-      } else if (cmmd == "Help") {
-        Utilities.informUser(factory.getHelp());
-      } else if (cmmd == "About") {
-        Utilities.informUser(factory.about());
       } else {
         Utilities.error("Unrecognized command: " + cmmd);
       }
@@ -101,12 +109,41 @@ public class MVCApp extends JFrame {
 
   class EditHandler implements ActionListener {
     public void actionPerformed(ActionEvent e) {
+      String cmmd = e.getActionCommand();
       // make a command and ask command processor to execute it TODO
+      if (cmmd == "Undo") {
+        commandProcessor.undo();
+      } else if (cmmd == "Redo") {
+        commandProcessor.redo();
+      } else if (cmmd == "SetHeight") {
+        commandProcessor.execute(factory.makeCommand(cmmd) );
+      } else if (cmmd == "SetWidth") {
+        commandProcessor.execute(factory.makeCommand(cmmd) );
+      } else if (cmmd == "SetLength") {
+        commandProcessor.execute(factory.makeCommand(cmmd) );
+      } else {
+        Utilities.error("Unrecognized command: " + cmmd);
+      }
     }
   }
 	class HelpHandler implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
-      // TODO
+      String cmmd = e.getActionCommand();
+      if (cmmd == "Help") {
+        Utilities.informUser(factory.getHelp());
+      } else {
+        Utilities.error("Unrecognized command: " + cmmd);
+      }
     }
 	}
+  class AboutHandler implements ActionListener{
+    public void actionPerformed(ActionEvent e){
+      String cmmd = e.getActionCommand();
+      if (cmmd == "About") {
+        Utilities.informUser(factory.about());
+      } else {
+        Utilities.error("Unrecognized command: " + cmmd);
+      }
+    }
+  }
 }

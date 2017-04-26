@@ -1,6 +1,7 @@
 package mvc;
 
-import java.util.Observable;
+import java.util.*;
+import javax.swing.*;
 
 // TODO: why abstract?
 public abstract class View extends JPanel implements Observer {
@@ -18,6 +19,6 @@ public abstract class View extends JPanel implements Observer {
     this.model = model;
     this.model.addObserver(this);
   }
-  @Override 
+  @Override
   public abstract void update(Observable arg0, Object arg1);
 }

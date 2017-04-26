@@ -9,7 +9,7 @@ import java.io.ObjectOutputStream;
 public class Utilities {
 
   public static JMenu makeMenu(String name, String[] items,
-                               ActxionListener handler) {
+                               ActionListener handler) {
 
     JMenu result;
     int j = name.indexOf('&');
@@ -71,9 +71,11 @@ public class Utilities {
   }
 
   public static void saveChanges(Model model) {
-    if (model.hasUnsavedChanges() &&
-        Utilities.confirm("current model has unsaved changes, continue?"))
-      Utilities.save(model);
+    Utilities.save(model);
+    // if (model.hasChanged() ){
+    //   Utilities.confirm("current model has unsaved changes, continue?");
+    //   Utilities.save(model);
+    // }
   }
 
   public static void save(Model model) {
@@ -86,7 +88,6 @@ public class Utilities {
       ObjectOutputStream os =
           new ObjectOutputStream(new FileOutputStream(fName));
       os.writeObject(model);
-      model.setUnsavedChanges(false);
     } catch (Exception err) {
       Utilities.error(err.getMessage());
     }

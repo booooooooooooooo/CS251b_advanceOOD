@@ -5,6 +5,7 @@ import java.util.Observable;
 
 public abstract class Model extends Observable implements Serializable {
   private String filename;
+  //TODO: a boolean variable to indicate whether the model is changed after the last save
 
   public Model() {
     super();

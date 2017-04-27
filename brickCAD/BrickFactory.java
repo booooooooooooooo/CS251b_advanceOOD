@@ -1,22 +1,23 @@
 import mvc.*;
 
 public class BrickFactory implements AppFactory {
-  private Model model;
   @Override
   public Model makeModel() {
     // TODO
-    this.model = new BrickModel();
-    return this.model;
+    return new BrickModel();
   }
   @Override
-  public View makeView(String viewType) {
+  public View makeView(String viewType, Model model) {
     // TODO
-    return new ViewSide(this.model);
+    if(viewType.equals("Dimension")) return new DimensionView(model);
+    else if(viewType.equals("Side"))return new ViewSide(model);
+    else return new ViewSide(model);
   }
   @Override
-  public Command makeCommand(String cmmdName) {
+  public Command makeCommand(String cmmdName, Model model) {
     // TODO
-    return new CommandSetHeight(this.model, true, 10);
+    if(cmmdName.equals("CommandSetLength")) return new CommandSetLength(model, true);
+    else return new CommandSetHeight(model, true);
   }
   @Override
   public String getViews() {

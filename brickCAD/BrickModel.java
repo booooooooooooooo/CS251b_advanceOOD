@@ -28,6 +28,10 @@ public class BrickModel extends Model {
   public void setHeight(double height) {
     this.height = height;
     changed();
+    System.out.printf("Height: %f", this.getHeight());
+    System.out.printf("Length: %f", this.getLength());
+    System.out.printf("Width: %f", this.getWidth());
+
   }
   public double getHeight() { return this.height; }
   public void setWidth(double width) {

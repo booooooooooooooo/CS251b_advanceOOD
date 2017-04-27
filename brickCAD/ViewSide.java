@@ -1,14 +1,25 @@
 import mvc.*;
 import java.util.*;
+import java.awt.*;
 
 public class ViewSide extends View {
+  private Rectangle rect;
   public ViewSide(Model model) {
     super(model);
-    // TODO: add elements to panel and set it visible
   }
+
+  public void paintComponent(Graphics g){
+    super.paintComponent(g);
+    g.setColor(Color.red);
+    BrickModel bm = (BrickModel)this.model;
+    double width = bm.getWidth();
+    double length = bm.getLength();
+    g.fillRect(0, 0, (int)length, (int)width);
+  }
+
 
   @Override
   public void update(Observable arg0, Object arg1) {
-    // TODO: change data in panel and repaint
+    this.repaint();
   }
 }

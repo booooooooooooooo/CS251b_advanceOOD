@@ -54,7 +54,7 @@ public class MVCApp extends JFrame {
     JMenuBar menubar = new JMenuBar();
     String[] fileItems = {"Save", "SaveAs", "Open", "New", "Exit"};
     String[] editItems = {"Undo", "Redo", "SetHeight", "SetWidth", "SetLength"};
-    String[] viewItems = {"Front", "Top", "Side"};
+    String[] viewItems = {"Front", "Top", "Side","Dimension"};
     String[] helpItems = {"Help"};
     String[] aboutItems = {"About"};
     JMenu filemenu = Utilities.makeMenu("File", fileItems, new FileHandler()) ;
@@ -95,8 +95,7 @@ public class MVCApp extends JFrame {
   class ViewHandler implements ActionListener {
     public void actionPerformed(ActionEvent e) {
       String cmmd = e.getActionCommand();
-      View panel = factory.makeView(cmmd);
-      panel.setModel(model);
+      View panel = factory.makeView(cmmd, model);
       ViewFrame vf = new ViewFrame(panel);
       vf.setVisible(true);
       desktop.add(vf);
@@ -116,11 +115,11 @@ public class MVCApp extends JFrame {
       } else if (cmmd == "Redo") {
         commandProcessor.redo();
       } else if (cmmd == "SetHeight") {
-        commandProcessor.execute(factory.makeCommand(cmmd) );
+        commandProcessor.execute(factory.makeCommand(cmmd, model) );
       } else if (cmmd == "SetWidth") {
-        commandProcessor.execute(factory.makeCommand(cmmd) );
+        commandProcessor.execute(factory.makeCommand(cmmd, model) );
       } else if (cmmd == "SetLength") {
-        commandProcessor.execute(factory.makeCommand(cmmd) );
+        commandProcessor.execute(factory.makeCommand(cmmd, model) );
       } else {
         Utilities.error("Unrecognized command: " + cmmd);
       }

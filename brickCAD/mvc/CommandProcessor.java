@@ -34,4 +34,9 @@ public class CommandProcessor {
       undoStack.push(cmd);
     }
   }
+  public void clear(){
+    this.undoStack = new Stack<Command>();
+    this.redoStack = new Stack<Command>();
+  }
+
 }

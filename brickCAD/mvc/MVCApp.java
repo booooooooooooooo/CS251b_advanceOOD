@@ -17,7 +17,7 @@ public class MVCApp extends JFrame {
   public MVCApp(AppFactory factory) {
 
     this.factory = factory;
-    this.model = factory.makeModel();
+    this.model = null;
     this.commandProcessor = new CommandProcessor();
 
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -54,7 +54,7 @@ public class MVCApp extends JFrame {
     JMenuBar menubar = new JMenuBar();
     String[] fileItems = {"Save", "SaveAs", "Open", "New", "Exit"};
     String[] editItems = {"Undo", "Redo", "SetHeight", "SetWidth", "SetLength"};
-    String[] viewItems = {"Front", "Top", "Side","Dimension"};
+    String[] viewItems = {"Front", "Top", "Side1","Side2", "Dimension"};
     String[] helpItems = {"Help"};
     String[] aboutItems = {"About"};
     JMenu filemenu = Utilities.makeMenu("File", fileItems, new FileHandler()) ;
@@ -68,22 +68,30 @@ public class MVCApp extends JFrame {
     menubar.add(helpmenu);
     menubar.add(aboutmenu);
     return menubar;
+
   }
 
   class FileHandler implements ActionListener {
     public void actionPerformed(ActionEvent e) {
+      commandProcessor.clear();//clear command stacks
+
       String cmmd = e.getActionCommand();
       if (cmmd == "Save") {
         Utilities.save(model);
       } else if (cmmd == "SaveAs") {
-        Utilities.error("Sorry, not yet implemented");
+        Utilities.saveAs(model);
       } else if (cmmd == "Open") {
-        Utilities.error("Sorry, not yet implemented");
+        model = Utilities.open();
+        desktop.removeAll();
+        desktop.repaint();
+        // Utilities.error("Sorry, not yet implemented");
       } else if (cmmd == "New") {
-        Utilities.saveChanges(model);
+        if(model != null) Utilities.save(model);
         model = factory.makeModel();
+        desktop.removeAll();
+        desktop.repaint();
       } else if (cmmd == "Exit") {
-        Utilities.saveChanges(model);
+        Utilities.save(model);
         System.exit(1);
       } else {
         Utilities.error("Unrecognized command: " + cmmd);
@@ -94,35 +102,45 @@ public class MVCApp extends JFrame {
   // sort of works
   class ViewHandler implements ActionListener {
     public void actionPerformed(ActionEvent e) {
-      String cmmd = e.getActionCommand();
-      View panel = factory.makeView(cmmd, model);
-      ViewFrame vf = new ViewFrame(panel);
-      vf.setVisible(true);
-      desktop.add(vf);
-      try {
-        vf.setSelected(true);
-      } catch (java.beans.PropertyVetoException ex) {
-      }
+      if(model != null){
+        String cmmd = e.getActionCommand();
+        View panel = factory.makeView(cmmd, model);
+        if(panel != null){
+          ViewFrame vf = new ViewFrame(panel);
+          vf.setTitle(cmmd);
+          vf.setVisible(true);
+          desktop.add(vf);
+          try {
+            vf.setSelected(true);
+          } catch (java.beans.PropertyVetoException ex) {
+          }
+        }else
+          Utilities.error("No such view!");
+
+      }else
+        Utilities.error("No model is under editing! Please open a model or new a model!");
     }
   }
 
   class EditHandler implements ActionListener {
     public void actionPerformed(ActionEvent e) {
-      String cmmd = e.getActionCommand();
-      // make a command and ask command processor to execute it TODO
-      if (cmmd == "Undo") {
-        commandProcessor.undo();
-      } else if (cmmd == "Redo") {
-        commandProcessor.redo();
-      } else if (cmmd == "SetHeight") {
-        commandProcessor.execute(factory.makeCommand(cmmd, model) );
-      } else if (cmmd == "SetWidth") {
-        commandProcessor.execute(factory.makeCommand(cmmd, model) );
-      } else if (cmmd == "SetLength") {
-        commandProcessor.execute(factory.makeCommand(cmmd, model) );
-      } else {
-        Utilities.error("Unrecognized command: " + cmmd);
-      }
+      if(model != null){
+        String cmmd = e.getActionCommand();
+        // make a command and ask command processor to execute it TODO
+        if (cmmd == "Undo") {
+          commandProcessor.undo();
+        } else if (cmmd == "Redo") {
+          commandProcessor.redo();
+        } else{
+          Command cmd = factory.makeCommand(cmmd, model) ;
+          if(cmd != null) commandProcessor.execute(cmd);
+          else Utilities.error("Unrecognized command: " + cmmd);
+        }
+
+
+      }else
+        Utilities.error("No model is under editing! Please open a model or new a model!");
+
     }
   }
 	class HelpHandler implements ActionListener{

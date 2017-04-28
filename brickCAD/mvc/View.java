@@ -21,4 +21,6 @@ public abstract class View extends JPanel implements Observer {
   }
   @Override
   public abstract void update(Observable arg0, Object arg1);
+
+
 }

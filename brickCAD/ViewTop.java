@@ -2,9 +2,8 @@ import mvc.*;
 import java.util.*;
 import java.awt.*;
 
-public class ViewSide extends View {
-  private Rectangle rect;
-  public ViewSide(Model model) {
+public class ViewTop extends View {
+  public ViewTop(Model model) {
     super(model);
   }
 
@@ -12,9 +11,9 @@ public class ViewSide extends View {
     super.paintComponent(g);
     g.setColor(Color.red);
     BrickModel bm = (BrickModel)this.model;
-    double width = bm.getWidth();
+    double height = bm.getHeight();
     double length = bm.getLength();
-    g.fillRect(0, 0, (int)length, (int)width);
+    g.fillRect(0, 0, (int)length, (int)height);
   }
 
 

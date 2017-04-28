@@ -3,8 +3,7 @@ package mvc;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.io.FileOutputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
 
 public class Utilities {
 
@@ -70,15 +69,13 @@ public class Utilities {
                                   JOptionPane.INFORMATION_MESSAGE);
   }
 
-  public static void saveChanges(Model model) {
-    Utilities.save(model);
-    // if (model.hasChanged() ){
-    //   Utilities.confirm("current model has unsaved changes, continue?");
-    //   Utilities.save(model);
-    // }
-  }
+
 
   public static void save(Model model) {
+    if(model == null){
+      Utilities.error("No model is under editing! Please open a model or new a model!");
+      return;
+    }
     String fName = model.getFileName();
     if (fName == null) {
       fName = Utilities.askUser("Enter a file name");
@@ -92,4 +89,39 @@ public class Utilities {
       Utilities.error(err.getMessage());
     }
   }
+  public static void saveAs(Model model) {
+    if(model == null){
+      Utilities.error("No model is under editing! Please open a model or new a model!");
+      return;
+    }
+    while(true){
+      String fName = Utilities.askUser("Enter a file name");
+      if(!fName.equals(model.getFileName())){
+        model.setFileName(fName);
+        try {
+          ObjectOutputStream os =
+              new ObjectOutputStream(new FileOutputStream(fName));
+          os.writeObject(model);
+        } catch (Exception err) {
+          Utilities.error(err.getMessage());
+        }
+        break;
+      }
+    }
+
+
+  }
+  public static Model open(){
+    Model model = null;
+    String fileName = Utilities.askUser("Enter file name:");
+    try {
+      ObjectInputStream is =
+          new ObjectInputStream(new FileInputStream(fileName));
+      model = (Model) (is.readObject() );
+    } catch (Exception err) {
+      Utilities.error(err.getMessage());
+    }
+    return model;
+  }
+
 }

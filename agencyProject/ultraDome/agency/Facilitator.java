@@ -21,9 +21,7 @@ public abstract class Facilitator{
     if(agents.size() <= 1) System.out.println("Less than or equal to one agents");//TODO: throw error
     while(true){
       int id =  (new Random()).nextInt(agents.size());
-      System.out.printf("Agent ID: %d\n", id);
       if( agents.get(id).getID() != a.getID() ) {
-
         return agents.get(id);
       }
     }

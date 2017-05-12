@@ -1,13 +1,10 @@
-public class Skin{
-  private Skin oldSkin;
-  public Skin(Skin oldSkin){
-    this.oldSkin = oldSkin;
+public enum Skin{
+  IronSkin(Weapon.Iron), MagicSkin(Weapon.Magic), ChemicalSkin(Weapon.Chemical), FireSkin(Weapon.Fire);
+  private Weapon weapon;
+  Skin(Weapon weapon){
+    this.weapon = weapon;
   }
-  public int defend(Weapon weapon){
-    int harm = weapon.getStrikeHarm();
-    int reduce = this.reduce(harm);
-  }
-  public int reduce(int harm){
-    
+  public Weapon getTargetWeapon(){
+    return this.weapon;
   }
 }

@@ -9,14 +9,14 @@ public class Agent extends Thread {
     this.id = id;
     this.message = m;
   }
-  
+
   public Message getMessage(){return this.message;}
 
 
   public int getID(){return this.id;}
 
   public void run() {
-    while(!isDead){
+    while(true){
       facilitator.update(this);
       try{
         sleep(500);

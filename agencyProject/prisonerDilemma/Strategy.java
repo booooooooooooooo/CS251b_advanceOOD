@@ -1,14 +1,16 @@
 import agency.*;
 
 public class Strategy implements Message{
+  private int stgy;
   public Strategy(int order){
-    //TODO: make Strategy 0 - 15
+    this.stgy = order;
   }
-  public int getChoice(int record1, int record2){
-    //TODO
+  public int getChoice(int rec){
+    return ( (stgy >> rec) & 1 );
   }
   @Override
   public String toString(){
     //TODO
+    return "not support yet";
   }
 }

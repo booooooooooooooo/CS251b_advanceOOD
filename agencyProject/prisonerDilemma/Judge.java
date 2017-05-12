@@ -1,7 +1,8 @@
 import agency.*;
+import java.util.*;
 
 public class Judge extends Facilitator{
-  private int[][] record;
+  private int[] record;
   private int[] score;
   public Judge(){
     super();
@@ -10,10 +11,8 @@ public class Judge extends Facilitator{
       Agent ag = new Agent(this, i, stgy);
       agents.add(ag);
     }
-    record = new int[16][2];
-    for(int i = 0; i < 16; i++){
-      Arrays.fill(record[i], -1);
-    }
+    record = new int[16];
+    Arrays.fill(record, 3);//TODO: initial value
     score = new int[16];
     Arrays.fill(score, 0);
   }
@@ -21,10 +20,10 @@ public class Judge extends Facilitator{
   public void react(Agent a1, Agent a2){
     int id1 = a1.getID();
     int id2 = a2.getID();
-    Strategy stgy1 = (Strategy)a1.getMessage();
-    Strategy stgy2 = (Strategy)s2.getMessage();
-    int choice1 = stgy1.getChoice(record[id2][0], record[id2][1]);
-    int choice2 = stgy2.getChoice(record[id1][0], record[id1][1]);
+    Strategy stgy1 = (Strategy) (a1.getMessage() );
+    Strategy stgy2 = (Strategy) (a2.getMessage() );
+    int choice1 = stgy1.getChoice(record[id2]);
+    int choice2 = stgy2.getChoice(record[id1]);
     int acc1 = 0;
     int acc2 = 0;
     if(choice1 == 1 && choice2 == 1){
@@ -44,10 +43,8 @@ public class Judge extends Facilitator{
     }
     score[id1] += acc1;//TODO: check overflow
     score[id2] += acc2;
-    record[id1][0] = record[id1][1];
-    record[id1][1] = choice1;
-    record[id2][0] = record[id2][1];
-    record[id2][1] = choice2;
-
+    record[id1] = record[id1] % 2 * 2 + choice1;
+    record[id2] = record[id2] % 2 * 2 + choice2;
+    System.out.println(Arrays.toString(score));
   }
 }

@@ -32,10 +32,9 @@ public abstract class Facilitator{
   public synchronized void update(Agent a1){
     System.out.printf("%dth Update\n", count);
     count++;
-    Agent a2 = getPartner(a1);
-    react(a1, a1);
+    react(a1);
   }
   //To be overriden
-  public abstract void react(Agent a1, Agent a2);
+  public abstract void react(Agent a1);
 
 }

@@ -17,7 +17,9 @@ public class Judge extends Facilitator{
     Arrays.fill(score, 0);
   }
   @Override
-  public void react(Agent a1, Agent a2){
+  public void react(Agent a1){
+    Agent a2 = getPartner(a1);
+    
     int id1 = a1.getID();
     int id2 = a2.getID();
     Strategy stgy1 = (Strategy) (a1.getMessage() );

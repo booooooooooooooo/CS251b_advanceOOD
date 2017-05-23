@@ -1,0 +1,8 @@
+a. COM(Dispatcher) = (1 + 2 + 2) / 3 * 4 = 5 / 12
+b. encumbrance(Dispatcher) = 4
+c. stability(Dispatcher) = 1 - 3 / 5 = 2 / 5
+d. responsibility(Dispatcher) = 1 / 5
+e. deviance(Dispatcher) = abs(2 / 5 - 1 / 5) = 1 / 5
+f. access(Dispatcher, Server1) = 2 / 4
+g. scope(Dispatcher, Server1) =2 / 7
+h. couplingDegree(Dispatcher, Service1) = (2 / 4 + 2 / 7) / 2 = 11 / 28
